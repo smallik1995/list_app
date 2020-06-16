@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import './App.css';
 
 const ListItem = (props) => {
@@ -8,15 +8,11 @@ const ListItem = (props) => {
 }
 
 const ListDisplays = (props) => {
-  const lists = props.lists;
-
-  console.log(lists.map((item) =>item));
-
-  const listItems = lists.map((item) => {
-      <ListItem key={item} value={item} />
-    });
-
-  return (
+    const lists = props.lists;
+    const listItems = lists.map((item) => {
+      return <ListItem key={item} value={item}/>
+    })
+    return (
     <ul>
       {listItems}
     </ul>
@@ -25,22 +21,41 @@ const ListDisplays = (props) => {
 
 const InputNewTask = () => {
   return (
-    <input type={"text"} placeholder={'Введите задачу'} />
+    <input type={"text"} placeholder={'Введите задачу'} name={'item'}/>
   )
 }
-const Button = () => {
-  return (
-    <button >Добавить задачу</button>
-  )
-}
-const lists = ['item1', 'item2', 'item3'];
+const Button = (props) => {
+  const lists = props.lists;
+  const setLists = () => props.setLists;
 
-const App = (props) =>  {
+  const addItem = useCallback(() => {
+    const input = document.querySelector('input[name=item]');
+    let inputValue = input.value;
+
+    if(lists.length < 10 ) {
+      if (inputValue !== '') {
+        setLists(lists.push(inputValue));
+        input.value = '';
+
+        console.log(lists);
+      }
+    } else {
+      alert('Список заполнен');
+    }
+  });
+
+  return (
+    <button onClick={addItem}>Добавить задачу</button>
+  )
+}
+
+const App = () =>  {
+  const [lists, setLists] = useState([]);
   return (
     <>
-      <ListDisplays lists={lists}/>
-      <InputNewTask/>
-      <Button />
+      <ListDisplays lists={lists} />
+      <InputNewTask />
+      <Button lists={lists} setList={setLists}/>
     </>
   );
 }
