@@ -1,25 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const ListItem = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <li>{props.value}</li>
+  )
+}
+
+const ListDisplays = (props) => {
+  const lists = props.lists;
+
+  console.log(lists.map((item) =>item));
+
+  const listItems = lists.map((item) => {
+      <ListItem key={item} value={item} />
+    });
+
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  )
+}
+
+const InputNewTask = () => {
+  return (
+    <input type={"text"} placeholder={'Введите задачу'} />
+  )
+}
+const Button = () => {
+  return (
+    <button >Добавить задачу</button>
+  )
+}
+const lists = ['item1', 'item2', 'item3'];
+
+const App = (props) =>  {
+  return (
+    <>
+      <ListDisplays lists={lists}/>
+      <InputNewTask/>
+      <Button />
+    </>
   );
 }
 
