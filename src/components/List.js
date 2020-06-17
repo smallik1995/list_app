@@ -1,11 +1,11 @@
 import React from "react";
 
-const List = ({list,postfix,prefix}) => {
+const List = ({list}) => {
   return (
     <ul>
       {list.map((item, index) => (
         <li key={index.toString()}>
-          <span>{prefix}</span> <span>{item}</span> <span>{postfix}</span>
+          <span>{item}</span>
         </li>
       ))}
     </ul>
