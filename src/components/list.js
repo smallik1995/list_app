@@ -1,11 +1,9 @@
 import React from "react";
 
-export const ListDisplays = ({lists}) => {
-  console.log(lists);
-
+export const List = ({list}) => {
   return (
     <ul>
-      {lists.map((item, index) => (
+      {list.map((item, index) => (
         <li key={index.toString()}>
           <span>{item}</span>
         </li>

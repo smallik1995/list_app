@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
-// import state from './state';
-import {InputNewTask, Button} from './addItemBox';
-import {ListDisplays} from './displayList'
+import {ButtonAddItem} from './addItemBox';
+import {InputAddItem} from './inputAddItem';
+import {List} from './list'
 
 const App = () =>  {
-  const [lists, setLists] = useState([]);
+  const [list, setList] = useState([]);
+
   return (
     <>
-      <ListDisplays lists={lists} />
-      <InputNewTask />
-      <Button
-        lists={lists}
-        setLists={setLists}
-      />
+      <List list={list} />
+      <InputAddItem />
+      <ButtonAddItem list={list} setList={setList} />
     </>
   );
 }
