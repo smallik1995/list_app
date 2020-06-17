@@ -1,13 +1,15 @@
 import React from "react";
 
-export const List = ({list}) => {
+const List = ({list,postfix,prefix}) => {
   return (
     <ul>
       {list.map((item, index) => (
         <li key={index.toString()}>
-          <span>{item}</span>
+          <span>{prefix}</span> <span>{item}</span> <span>{postfix}</span>
         </li>
       ))}
     </ul>
   )
 }
+
+export default List;
