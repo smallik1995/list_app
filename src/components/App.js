@@ -1,16 +1,30 @@
 import React, {useState} from 'react';
-import {ButtonAddItem} from './addItemBox';
-import {InputAddItem} from './inputAddItem';
-import {List} from './list'
+import {List} from './list';
 
 const App = () =>  {
   const [list, setList] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const addItem = () => {
+    if (list.length < 3) {
+      if (inputValue !== '') {
+        setList([...list, inputValue]);
+      }
+    } else {
+      alert('Список заполнен');
+    }
+  }
 
   return (
     <>
       <List list={list} />
-      <InputAddItem />
-      <ButtonAddItem list={list} setList={setList} />
+      <input type={"text"}
+             placeholder={'Введите задачу'}
+             name={'item'}
+             value={inputValue}
+             onChange={(event) => setInputValue(event.target.value)}
+      />
+      <button onClick={() => addItem(list, setList)}>Добавить задачу</button>
     </>
   );
 }
