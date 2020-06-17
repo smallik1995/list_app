@@ -6,14 +6,14 @@ export const InputNewTask = () => {
   )
 }
 
-export const Button = ({lists, saveItem}) => {
+export const Button = ({lists, setLists}) => {
   const addItem = () => {
     const input = document.querySelector('input[name=item]');
     let inputValue = input.value;
 
     if (lists.length < 3) {
       if (inputValue !== '') {
-        saveItem(inputValue);
+        setLists([...lists, inputValue]);
         input.value = '';
       }
     } else {

@@ -1,6 +1,8 @@
 import React from "react";
 
 export const ListDisplays = ({lists}) => {
+  console.log(lists);
+
   return (
     <ul>
       {lists.map((item, index) => (
