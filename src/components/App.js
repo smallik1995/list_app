@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import List from './List';
 
 const App = () =>  {
@@ -11,23 +11,24 @@ const App = () =>  {
   const postfixChange = useCallback((event) => {setPostfixValue(event.target.value);}, []);
   const valueChange = useCallback((event) => {setInputValue(event.target.value);}, []);
 
-  const addItem = () => {
-    const listItem = `${prefixValue} ${inputValue} ${postfixValue}`;
+  const addItem = useCallback(() => {
     if (list.length < 3) {
       if (inputValue !== '') {
-        setList([...list, listItem ]);
+        setList([...list, inputValue ]);
         setInputValue('');
       }
     } else {
       alert('Список заполнен');
     }
-  }
-
-  const callAddItem = useCallback(() => addItem(list, setList));
+    },[inputValue, list]
+  );
+  const addPrefixs = useMemo(() => {
+    return (list.map((item) => (prefixValue + item + postfixValue)))
+  }, [list,postfixValue, prefixValue])
 
   return (
     <>
-      <List list={list} />
+      <List list={addPrefixs} />
       <input type={"text"}
              placeholder={'Введите префикс'}
              name={'prefix'}
@@ -46,7 +47,7 @@ const App = () =>  {
              value={postfixValue}
              onChange={postfixChange}
       />
-      <button onClick={callAddItem}>Добавить задачу</button>
+      <button onClick={addItem}>Добавить задачу</button>
     </>
   );
 }
